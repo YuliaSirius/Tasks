@@ -32,7 +32,20 @@ function deepEqual(obj1, obj2) {
 console.log(deepEqual(obj1, obj2));
 console.log(equalObj(obj3, obj2));
 
+function equal(obj1, obj2) {
+  let result1 = [];
+  for (let i in obj1) {
+    result1.push(i)
+    result1.push(i)
+  }
+  ;
+  let result2 = [];
+  for (let i in obj2) result2.push(i);
+  console.log(result1);
+  console.log(result2);
+}
 
+console.log(equal(obj1, obj2));
 
 //  Object.getOwnPropertyNames(a));
 //   Object.keys(a));
