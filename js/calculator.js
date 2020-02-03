@@ -44,10 +44,9 @@ let calc = (function() {
   };
 })();
 
-calc.add(4); // 4
-calc.add(2); // 6
+calc.add(2); // 2
 console.log(calc.print());
-calc.pow(2); // 36
+calc.pow(2); // 4
 console.log(calc.print());
 calc.sqrt(25); // 5
 console.log(calc.print());
@@ -55,6 +54,7 @@ calc.sin(25); // -0,13
 console.log(calc.print());
 calc.pi(); //  3,14
 console.log(calc.print());
+
 
 // (function () {
 //   let x = Number(prompt('Enter x', 0));
