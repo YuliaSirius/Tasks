@@ -48,14 +48,3 @@ let drinkStorage = new HashStorageFunc();
 let classA = new ClassA();
 let classB = new ClassB();
 
-// drinkStorage.addValue('Margarita', {
-//   Alcoholic: 'yes',
-//   Ingredients: ['Strawberry', 'Tequila']
-// });
-// classB.addValue('Pina Colada', {
-//   Alcoholic: 'yes',
-//   Ingredients: ['Сoconut milk', 'Pineapple juice']
-// });
-// console.log(classB);
-// console.log(classB.getKeys());
-// classB.getValue('Pina Coada');
