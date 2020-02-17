@@ -7,4 +7,5 @@ let filtered = arr.filter(inRange(3, 15)); // [5, 15, 12, 4]
 
 
 ['1.2', '15'].map(parseInt); // [1, NaN]
-['1.2', '15'].map(item => item = parseInt(item)); // [1, 15]
+['1.2', '15'].map(item => parseInt(item)); // [1, 15]
+

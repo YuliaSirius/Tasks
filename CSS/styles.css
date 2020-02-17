@@ -1,0 +1,11 @@
+ form>label {
+     padding-top: 10px;
+     display: flex;
+     width: 30%;
+     justify-content: space-between;
+
+ }
+
+ input {
+     border-radius: 7px;
+ }
