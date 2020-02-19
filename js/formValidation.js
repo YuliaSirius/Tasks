@@ -127,3 +127,39 @@ let formDef2 = [
 ];
 createForm(receivedForm, formDef1);
 createForm(received, formDef2);
+
+// Validation
+let inputText = document.querySelectorAll('input[type="text"]');
+let inputNumber = document.querySelectorAll('input[type="number"]');
+let inputEmail = document.querySelectorAll('input[type="email"]');
+let message = document.createElement('span');
+
+[...inputText, ...inputNumber, ...inputEmail].forEach(item => {
+  item.addEventListener('blur', function() {
+    if (!item.value) {
+     item.parentNode.append(createMessageError(item, 'Enter value'));
+    } else {
+      let error = item.parentNode.querySelector('.error');
+      if (error) {
+        item.parentNode.removeChild(error);
+      }
+    }
+  });
+});
+
+function createMessageError(elem, text) {
+  message.classList.add('error');
+  let coords = getCoords(elem);
+  message.style.left = coords.right + 5 + 'px';
+  message.style.top = coords.top + 'px';
+  message.innerHTML = text;
+  return message;
+}
+
+function getCoords(elem) {
+  let box = elem.getBoundingClientRect();
+  return {
+    top: box.top + pageYOffset,
+    right: box.right + pageXOffset
+  };
+}

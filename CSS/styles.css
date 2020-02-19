@@ -1,11 +1,49 @@
- form>label {
-     padding-top: 10px;
-     display: flex;
-     width: 30%;
-     justify-content: space-between;
+form {
+    margin: 0 auto;
+    max-width: 500px;
+    margin-bottom: 40px;
+    background-color: rgb(207, 200, 200);
+    padding: 25px;
+    border-radius: 7px;
+    border: solid 2px black;
+}
 
- }
+.label_style {
+    flex-basis: 250px;
+    font-size: 18px;
+    font-weight: bold;
 
- input {
-     border-radius: 7px;
- }
+
+}
+
+.input_style {
+    border-radius: 7px;
+    border: solid 2px black;
+    min-height: 20px;
+}
+
+.select_style {
+    border-radius: 7px;
+    border: solid 2px black;
+}
+
+.textarea_style {
+    border: solid 2px black;
+    border-radius: 7px;
+    resize: vertical;
+    width: 48%;
+}
+
+.div_style {
+    display: flex;
+    margin-top: 8px;
+    align-items: center;
+}
+
+.error {
+    position: absolute;
+    color: red;
+    border: solid 1px red;
+    border-radius: 5px;
+    padding: 2px;
+    }
