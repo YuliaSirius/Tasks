@@ -1,11 +1,12 @@
 form {
     margin: 0 auto;
-    max-width: 500px;
+    max-width: 550px;
     margin-bottom: 40px;
     background-color: rgb(207, 200, 200);
     padding: 25px;
     border-radius: 7px;
     border: solid 2px black;
+    
 }
 
 .label_style {
@@ -20,6 +21,7 @@ form {
     border-radius: 7px;
     border: solid 2px black;
     min-height: 20px;
+    
 }
 
 .select_style {
@@ -38,6 +40,8 @@ form {
     display: flex;
     margin-top: 8px;
     align-items: center;
+    position: static;
+
 }
 
 .error {
@@ -46,4 +50,5 @@ form {
     border: solid 1px red;
     border-radius: 5px;
     padding: 2px;
-    }
+
+}

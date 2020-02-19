@@ -129,25 +129,40 @@ createForm(receivedForm, formDef1);
 createForm(received, formDef2);
 
 // Validation
+
 let inputText = document.querySelectorAll('input[type="text"]');
 let inputNumber = document.querySelectorAll('input[type="number"]');
-let inputEmail = document.querySelectorAll('input[type="email"]');
-let message = document.createElement('span');
+let inputEmail = document.querySelector('input[type="email"]');
 
-[...inputText, ...inputNumber, ...inputEmail].forEach(item => {
+[...inputText, ...inputNumber].forEach(item => {
   item.addEventListener('blur', function() {
+    let error = item.parentNode.querySelector('.error');
+    if (error) {
+      item.parentNode.removeChild(error);
+    }
     if (!item.value) {
-     item.parentNode.append(createMessageError(item, 'Enter value'));
-    } else {
-      let error = item.parentNode.querySelector('.error');
-      if (error) {
-        item.parentNode.removeChild(error);
-      }
+      item.parentNode.append(createMessageError(item, 'Enter value'));
     }
   });
 });
 
+inputEmail.addEventListener('blur', function() {
+  if (!inputEmail.value.includes('@')) {
+    inputEmail.parentNode.append(
+      createMessageError(inputEmail, 'Enter the correct email')
+    );
+  }
+});
+
+inputEmail.addEventListener('focus', function() {
+  let error = inputEmail.parentNode.querySelector('.error');
+  if (error) {
+    inputEmail.parentNode.removeChild(error);
+  }
+});
+
 function createMessageError(elem, text) {
+  let message = document.createElement('span');
   message.classList.add('error');
   let coords = getCoords(elem);
   message.style.left = coords.right + 5 + 'px';
@@ -159,7 +174,7 @@ function createMessageError(elem, text) {
 function getCoords(elem) {
   let box = elem.getBoundingClientRect();
   return {
-    top: box.top + pageYOffset,
-    right: box.right + pageXOffset
+    top: box.top,
+    right: box.right
   };
 }
