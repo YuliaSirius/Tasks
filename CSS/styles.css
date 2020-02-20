@@ -1,16 +1,16 @@
 form {
     margin: 0 auto;
-    max-width: 550px;
+    max-width: 450px;
     margin-bottom: 40px;
     background-color: rgb(207, 200, 200);
-    padding: 25px;
+    padding: 20px;
     border-radius: 7px;
     border: solid 2px black;
-    
+
 }
 
 .label_style {
-    flex-basis: 250px;
+    flex-basis: 220px;
     font-size: 18px;
     font-weight: bold;
 
@@ -21,7 +21,7 @@ form {
     border-radius: 7px;
     border: solid 2px black;
     min-height: 20px;
-    
+
 }
 
 .select_style {
@@ -34,21 +34,24 @@ form {
     border-radius: 7px;
     resize: vertical;
     width: 48%;
+    height: 20px;
 }
 
 .div_style {
+    margin-bottom: 12px;
     display: flex;
     margin-top: 8px;
     align-items: center;
-    position: static;
-
+    position: relative;
 }
 
 .error {
+    left: 220px;
+    top: 27px;
     position: absolute;
+    margin-left: 5px;
     color: red;
-    border: solid 1px red;
-    border-radius: 5px;
-    padding: 2px;
+    padding: 1px;
+    font-size: 14px;
 
 }

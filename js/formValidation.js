@@ -4,7 +4,6 @@ function createForm(form, formDef) {
   for (let key of formDef) {
     let div = document.createElement('div');
     let label = document.createElement('label');
-
     form.appendChild(div).classList.add('div_style');
     div.appendChild(label).classList.add('label_style');
     label.innerText = key.label;
@@ -37,6 +36,8 @@ function createForm(form, formDef) {
       case 'radio':
         let divRadio = document.createElement('div');
         div.appendChild(divRadio);
+        divRadio.classList.add('radio');
+        divRadio.id = 'idRadio';
         for (let item of key.options) {
           let input = document.createElement('input');
           divRadio.appendChild(input);
@@ -46,7 +47,7 @@ function createForm(form, formDef) {
           let labelRadio = document.createElement('label');
           divRadio.appendChild(labelRadio);
           labelRadio.innerText = item.text;
-          labelRadio.value = item.value; // не работает
+          labelRadio.value = item.value;
           labelRadio.htmlFor = i;
         }
         break;
@@ -129,52 +130,114 @@ createForm(receivedForm, formDef1);
 createForm(received, formDef2);
 
 // Validation
-
-let inputText = document.querySelectorAll('input[type="text"]');
-let inputNumber = document.querySelectorAll('input[type="number"]');
-let inputEmail = document.querySelector('input[type="email"]');
-
-[...inputText, ...inputNumber].forEach(item => {
+let allInputs = document.querySelectorAll('input');
+allInputs.forEach(item => {
   item.addEventListener('blur', function() {
-    let error = item.parentNode.querySelector('.error');
-    if (error) {
-      item.parentNode.removeChild(error);
-    }
-    if (!item.value) {
-      item.parentNode.append(createMessageError(item, 'Enter value'));
+    let type = item.type;
+    removeError(item);
+    switch (type) {
+      case 'text':
+        validateValue(item);
+        break;
+      case 'email':
+        validateEmail(item);
+        break;
+      case 'number':
+        validateValue(item);
+        validateNumber(item);
+        break;
+      case 'radio':
+        validateRadio();
+        break;
     }
   });
 });
 
-inputEmail.addEventListener('blur', function() {
-  if (!inputEmail.value.includes('@')) {
-    inputEmail.parentNode.append(
-      createMessageError(inputEmail, 'Enter the correct email')
-    );
+let forms = document.querySelectorAll('form');
+for (let form of forms) {
+  form.addEventListener('submit', function() {
+    let inputs = form.querySelectorAll('input');
+    for (let item of inputs) {
+      let type = item.type;
+      removeError(item);
+      switch (type) {
+        case 'text':
+          validateValue(item);
+          break;
+        case 'email':
+          validateEmail(item);
+          break;
+        case 'number':
+          validateValue(item);
+          validateNumber(item);
+          break;
+        case 'radio':
+          validateRadio();
+          break;
+      }
+    }
+    validateTextarea();
+    if (form.querySelector('.error')) {
+      event.preventDefault();
+    }
+  });
+}
+function validateValue(item) {
+  if (!item.value) {
+    item.after(createError(item, 'Enter value'));
   }
-});
-
-inputEmail.addEventListener('focus', function() {
-  let error = inputEmail.parentNode.querySelector('.error');
-  if (error) {
-    inputEmail.parentNode.removeChild(error);
+}
+function validateEmail(item) {
+  if (!(item.value.includes('@') && item.value.includes('.'))) {
+    item.after(createError(item, 'Enter the correct email'));
   }
-});
-
-function createMessageError(elem, text) {
-  let message = document.createElement('span');
+}
+function validateNumber(item) {
+  if (Number(item.value) < 0) {
+    item.after(createError(item, 'Enter a positive number'));
+  }
+}
+function validateRadio() {
+  let allRadio = document.querySelectorAll('[type="radio"]');
+  let checked = [...allRadio].map(item => item.checked == true);
+  let divRadio = document.querySelector('.radio');
+  let error = document.querySelector('.error');
+  if ((error = divRadio.nextSibling)) {
+    error.remove();
+  }
+  if (!checked.includes(true)) {
+    divRadio.after(createError(divRadio, 'Must choose'));
+  }
+}
+function removeError(item) {
+  let error = document.querySelector('.error');
+  if (item.type === 'text' || item.type === 'email' || item.type === 'number') {
+    if ((error = item.nextSibling)) {
+      error.remove();
+      item.style.borderColor = '';
+    }
+  }
+}
+function createError(elem, text) {
+  let message = document.createElement('label');
   message.classList.add('error');
-  let coords = getCoords(elem);
-  message.style.left = coords.right + 5 + 'px';
-  message.style.top = coords.top + 'px';
-  message.innerHTML = text;
+  message.append(document.createTextNode(text));
+  message.htmlFor = elem.id;
+  elem.style.borderColor = 'red';
   return message;
 }
-
-function getCoords(elem) {
-  let box = elem.getBoundingClientRect();
-  return {
-    top: box.top,
-    right: box.right
-  };
+let textarea = document.querySelector('textarea');
+textarea.addEventListener('blur', function() {
+  validateTextarea();
+});
+function validateTextarea() {
+  let error = document.querySelector('.error');
+  if ((error = textarea.nextSibling)) {
+    error.remove();
+    textarea.style.borderColor = '';
+  }
+  if (!textarea.value) {
+    textarea.after(createError(textarea, 'Enter value'));
+  }
 }
+
