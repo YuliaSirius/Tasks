@@ -13,6 +13,7 @@ bolls.forEach(element => {
       element.style.left = pageX - sizeX + 'px';
       element.style.top = pageY - sizeY + 'px';
     }
+    
     function onMouseMove(event) {
       moveElement(event.pageX, event.pageY);
       element.style.cursor = 'pointer';

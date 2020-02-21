@@ -6,22 +6,18 @@ form {
     padding: 20px;
     border-radius: 7px;
     border: solid 2px black;
-
 }
 
 .label_style {
     flex-basis: 220px;
     font-size: 18px;
     font-weight: bold;
-
-
 }
 
 .input_style {
     border-radius: 7px;
     border: solid 2px black;
     min-height: 20px;
-
 }
 
 .select_style {
@@ -53,5 +49,4 @@ form {
     color: red;
     padding: 1px;
     font-size: 14px;
-
 }
