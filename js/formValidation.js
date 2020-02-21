@@ -128,20 +128,16 @@ createForm(received, formDef2);
 // Validation
 
 let allInputs = document.querySelectorAll('input');
-allInputs.forEach(item => {
-  item.addEventListener('blur', function() {
-    validateAllInput(item);
-  });
-});
+allInputs.forEach(item =>
+  item.addEventListener('blur', () => validateAllInput(item))
+);
 
 let textarea = document.querySelector('textarea');
-textarea.addEventListener('blur', function() {
-  validateTextarea();
-});
+textarea.addEventListener('blur', () => validateTextarea());
 
 let forms = document.querySelectorAll('form');
 forms.forEach(item => {
-  item.addEventListener('submit', function() {
+  item.addEventListener('submit', () => {
     let inputs = item.querySelectorAll('input');
     for (let input of inputs) {
       validateAllInput(input);
@@ -180,19 +176,15 @@ function validateTextarea() {
     error.remove();
     textarea.style.borderColor = '';
   }
-  if (!textarea.value) {
-    textarea.after(createError(textarea, 'Enter value'));
-    }
+  if (!textarea.value) textarea.after(createError(textarea, 'Enter value'));
 }
 function validateValue(item) {
-  if (!item.value) {
-    item.after(createError(item, 'Enter value'));
-   }
+  if (!item.value) item.after(createError(item, 'Enter value'));
 }
 function validateEmail(item) {
   if (!(item.value.includes('@') && item.value.includes('.'))) {
     item.after(createError(item, 'Enter the correct email'));
-   }
+  }
 }
 function validateNumber(item) {
   if (Number(item.value) < 0)
@@ -224,4 +216,3 @@ function createError(elem, text) {
   elem.style.borderColor = 'red';
   return message;
 }
-
