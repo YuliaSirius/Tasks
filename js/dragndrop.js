@@ -6,6 +6,7 @@ bolls.forEach(element => {
     let sizeY = event.pageY - getElementPos(element).top;
     element.classList.add('position');
     document.body.append(element);
+
     moveElement(event.pageX, event.pageY);
 
     function moveElement(pageX, pageY) {
@@ -17,12 +18,12 @@ bolls.forEach(element => {
       element.style.cursor = 'pointer';
     }
 
-    element.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mousemove', onMouseMove);
 
-    element.addEventListener('mouseup', function() {
-      element.removeEventListener('mousemove', onMouseMove);
-      event.preventDefault;
-    });
+    element.onmouseup = function() {
+      document.removeEventListener('mousemove', onMouseMove);
+      element.onmouseup = null;
+    };
   });
   element.ondragstart = function() {
     return false;
