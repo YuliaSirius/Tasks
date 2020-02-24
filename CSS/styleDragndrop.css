@@ -2,7 +2,11 @@ body {
     background-color: rgb(110, 231, 151);
 }
 
-.position {
-    position: absolute;
+/* .position {
+    /* position: absolute; */
+    /* z-index: 5; */
+/* } */ */
+
+.z_index {
     z-index: 5;
 }

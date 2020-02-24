@@ -127,22 +127,15 @@ createForm(received, formDef2);
 
 // Validation
 
-let allInputs = document.querySelectorAll('input');
-allInputs.forEach(item =>
-  item.addEventListener('blur', () => validateAllInput(item))
-);
-
-let textarea = document.querySelector('textarea');
-textarea.addEventListener('blur', () => validateTextarea());
-
 let forms = document.querySelectorAll('form');
 forms.forEach(item => {
+  for (let elem of item) {
+    elem.addEventListener('blur', () => validateAll(elem));
+  }
   item.addEventListener('submit', () => {
-    let inputs = item.querySelectorAll('input');
-    for (let input of inputs) {
-      validateAllInput(input);
+    for (let elem of item) {
+      validateAll(elem);
     }
-    validateTextarea();
     let allErrorsInForm = item.querySelectorAll('.error');
     if (allErrorsInForm[0]) {
       event.preventDefault();
@@ -150,62 +143,62 @@ forms.forEach(item => {
     }
   });
 });
-
-function validateAllInput(item) {
-  let type = item.type;
+function validateAll(item) {
   removeError(item);
-  switch (type) {
-    case 'text':
+  switch (item.tagName) {
+    case 'INPUT':
+      let type = item.type;
+      switch (type) {
+        case 'text':
+          validateValue(item);
+          break;
+        case 'email':
+          validateEmail(item);
+          break;
+        case 'number':
+          validateValue(item);
+          validateNumber(item);
+          break;
+        case 'radio':
+          validateRadio();
+          break;
+      }
+      break;
+    case 'TEXTAREA':
       validateValue(item);
       break;
-    case 'email':
-      validateEmail(item);
-      break;
-    case 'number':
-      validateValue(item);
-      validateNumber(item);
-      break;
-    case 'radio':
-      validateRadio();
-      break;
   }
-}
-function validateTextarea() {
-  let error = document.querySelector('.error');
-  if ((error = textarea.nextSibling)) {
-    error.remove();
-    textarea.style.borderColor = '';
-  }
-  if (!textarea.value) textarea.after(createError(textarea, 'Enter value'));
 }
 function validateValue(item) {
-  if (!item.value) item.after(createError(item, 'Enter value'));
+  if (!item.value) {
+    addError(item, 'Enter value');
+  }
 }
 function validateEmail(item) {
   if (!(item.value.includes('@') && item.value.includes('.'))) {
-    item.after(createError(item, 'Enter the correct email'));
+    addError(item, 'Enter the correct email');
   }
 }
 function validateNumber(item) {
-  if (Number(item.value) < 0)
-    item.after(createError(item, 'Enter a positive number'));
+  if (Number(item.value) < 0) {
+    addError(item, 'Enter a positive number');
+  }
 }
 function validateRadio() {
   let allRadio = document.querySelectorAll('[type="radio"]');
-  let checked = [...allRadio].map(item => item.checked == true);
+  let checked = [...allRadio].some(item => item.checked);
   let divRadio = document.querySelector('.radio');
-  let error = document.querySelector('.error');
-  if ((error = divRadio.nextSibling)) error.remove();
-  if (!checked.includes(true))
-    divRadio.after(createError(divRadio, 'Must choose'));
+  removeError(divRadio);
+  if (!checked) {
+    addError(divRadio, 'Must choose');
+  }
 }
 function removeError(item) {
+  if (item.type === 'radio') return;
   let error = document.querySelector('.error');
-  if (item.type === 'text' || item.type === 'email' || item.type === 'number') {
-    if ((error = item.nextSibling)) {
-      error.remove();
-      item.style.borderColor = '';
-    }
+  if ((error = item.nextSibling)) {
+    error.remove();
+    item.style.borderColor = '';
   }
 }
 function createError(elem, text) {
@@ -215,4 +208,7 @@ function createError(elem, text) {
   message.htmlFor = elem.id;
   elem.style.borderColor = 'red';
   return message;
+}
+function addError(item, text) {
+  item.after(createError(item, text));
 }
