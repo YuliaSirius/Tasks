@@ -101,7 +101,6 @@ function addElement(elem) {
 createSvgClock();
 
 window.addEventListener('load', getStartedWatch());
-
 function getStartedWatch() {
   setInterval(updateTime, 0);
 }
