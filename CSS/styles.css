@@ -50,3 +50,12 @@ form {
     padding: 1px;
     font-size: 14px;
 }
+
+.test {
+color: rgb(0, 0, 0)
+}
+
+.clock {
+    display: flex;
+    justify-content: center;
+}
