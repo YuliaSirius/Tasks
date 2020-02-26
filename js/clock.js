@@ -17,12 +17,13 @@ function createSvgClock() {
   circle.setAttribute('cy', svgCenterY);
   svg.append(circle);
   let txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  txt.setAttribute('x', svgWidth * 0.4);
+  txt.setAttribute('x', svgCenterX);
   txt.setAttribute('y', svgHeight * 0.35);
   txt.style.fontSize = '22';
   txt.style.fontWeight = 'bold';
   txt.style.fill = 'rgb(0, 0, 0)';
   txt.id = 'time';
+  txt.style.textAnchor = 'middle';
   svg.append(txt);
   let serif = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
   serif.setAttribute('x', svgCenterX - 4);
