@@ -110,9 +110,9 @@ function updateTime() {
   updateTextTime(now);
 }
 function updateClockTime(now) {
-  let arrowHour = document.querySelector('#arrowHour');
-  let arrowMin = document.querySelector('#arrowMin');
-  let arrowSec = document.querySelector('#arrowSec');
+  let arrowHour = document.getElementById('arrowHour');
+  let arrowMin = document.getElementById('arrowMin');
+  let arrowSec = document.getElementById('arrowSec');
   let angleSec = now.getSeconds() * 6;
   let angleMin = now.getMinutes() * 6;
   let angleHour =
@@ -134,7 +134,7 @@ function formatDateTime(date) {
   return content;
 }
 function addZero(val) {
-  var strVal = val.toString();
+  let strVal = val.toString();
   while (strVal.length < 2) strVal = '0' + strVal;
   return strVal;
 }
