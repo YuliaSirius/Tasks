@@ -14,7 +14,8 @@ const clockRadius = clockWidth / 2;
 window.addEventListener('load', createClock);
 
 function createClock() {
-  requestAnimationFrame(drawClock);
+  drawClock();
+  setInterval(drawClock, 1000);
 }
 
 function drawClock() {
@@ -26,7 +27,6 @@ function drawClock() {
   drawArrow(90, 5);
   drawArrow(110, 3);
   drawTextTime();
-  requestAnimationFrame(drawClock);
 }
 
 function drawCircle() {
@@ -83,7 +83,7 @@ function getCoord(length) {
 }
 function getAngle(length) {
   let time = getDate();
-    if (length === 70) {
+  if (length === 70) {
     return (time.hour + time.min / 60 + time.sec / 3600) * 30;
   }
   if (length === 90) {
@@ -104,7 +104,9 @@ function drawTextTime() {
 }
 function formatDateTime() {
   let time = getDate();
-  let content = `${addZero(time.hour)}:${addZero(time.min)}:${addZero( time.sec )}`;
+  let content = `${addZero(time.hour)}:${addZero(time.min)}:${addZero(
+    time.sec
+  )}`;
   return content;
 }
 function getDate() {
@@ -118,7 +120,7 @@ function getDate() {
 function addZero(val) {
   let elem = val.toString();
   if (elem.length < 2) {
-    elem = `0${elem}`
+    elem = `0${elem}`;
   }
   return elem;
 }

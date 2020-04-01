@@ -102,7 +102,7 @@ createSvgClock();
 
 window.addEventListener('load', getStartedWatch());
 function getStartedWatch() {
-  setInterval(updateTime, 0);
+  setInterval(updateTime, 1000);
 }
 function updateTime() {
   let now = new Date();
