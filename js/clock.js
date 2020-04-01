@@ -102,6 +102,7 @@ createSvgClock();
 
 window.addEventListener('load', getStartedWatch());
 function getStartedWatch() {
+  updateTime();
   setInterval(updateTime, 1000);
 }
 function updateTime() {

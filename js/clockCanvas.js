@@ -17,7 +17,6 @@ function createClock() {
   drawClock();
   setInterval(drawClock, 1000);
 }
-
 function drawClock() {
   cnt.clearRect(0, 0, cnvWidth, cnvHeight);
   drawCircle();
@@ -28,7 +27,6 @@ function drawClock() {
   drawArrow(110, 3);
   drawTextTime();
 }
-
 function drawCircle() {
   let grad = cnt.createRadialGradient(сenterX, сenterY, 0, сenterX, сenterY, clockRadius);
   grad.addColorStop(0, 'rgb(255, 255, 255)');
